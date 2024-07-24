@@ -38,6 +38,7 @@ import { ScreenResultMatchField } from "../../models/ofac/screen-result-match-fi
 
 	columnCount = 1;
 	dataLoading = false;
+	apiDataLoaded = false;
 
 	screenPropertyNameMapMatchMap = {
 		[ScreenPropertyName.country]: false,
@@ -52,26 +53,36 @@ import { ScreenResultMatchField } from "../../models/ofac/screen-result-match-fi
 		this.screenUserData = this.screenUserData.bind(this);
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.initializeCountryDataSource();
 	}
 
-
-	screenUserData() {
+	screenUserData(): void {
 		this.dataLoading = true;
 
 		const isValid = this.getFormIsValid();
 
 		if (!isValid) {
 			this.dataLoading = false;
+			this.apiDataLoaded = false;
+
 			return;
 		}
 
 		this.resetScreenPropertyNameMapMatchMap();
 		this.processScreenData();
+		this.apiDataLoaded = true;
 	}
 
-	private processScreenData() {
+	public getScreeningStatus(): string {
+		if (!this.apiDataLoaded) {
+			return '';
+		}
+
+		return this.getUserIsHit() ? 'Hit' : 'Clear';
+	}
+
+	private processScreenData(): void {
 		this.ofacSdnService.screenUserData(this.formData)
 			.subscribe((screenResult: ScreenResultApiResponseDto) => {
 				if (screenResult.results.length === 0) {
@@ -105,7 +116,7 @@ import { ScreenResultMatchField } from "../../models/ofac/screen-result-match-fi
 			});
 	}
 
-	private resetScreenPropertyNameMapMatchMap() {
+	private resetScreenPropertyNameMapMatchMap(): void {
 		this.screenPropertyNameMapMatchMap = {
 			[ScreenPropertyName.country]: false,
 			[ScreenPropertyName.dateOfBirth]: false,
@@ -113,12 +124,20 @@ import { ScreenResultMatchField } from "../../models/ofac/screen-result-match-fi
 		}
 	}
 
-	private getFormIsValid() {
+	private getFormIsValid(): boolean | undefined {
 		return this.form!.instance.validate().isValid;
 	}
 
-	private initializeCountryDataSource() {
+	private initializeCountryDataSource(): void {
 		const countryService = new CountryService();
 		this.countryDataSource = countryService.getCountryDataSource();
 	}
+
+	private getUserIsHit(): boolean {
+		return this.screenPropertyNameMapMatchMap[ScreenPropertyName.country]
+		|| this.screenPropertyNameMapMatchMap[ScreenPropertyName.dateOfBirth]
+		|| this.screenPropertyNameMapMatchMap[ScreenPropertyName.fullName]
+	}
+
+
 }

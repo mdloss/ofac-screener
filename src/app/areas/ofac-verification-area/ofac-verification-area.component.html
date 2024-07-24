@@ -66,42 +66,50 @@
 			>
 			</dx-button>
 		</div>
+
 	</form>
-	<div class="matches-container">
-		<h3>Matches</h3>
-		<div id="matches-details-id">
-			<div>
-				<dl>
-					<dt>Full Name</dt>
-					<dd>
-						<i *ngIf="screenPropertyNameMapMatchMap['fullName']" class="dx-icon-check"></i>
-						<i *ngIf="!screenPropertyNameMapMatchMap['fullName']" class="dx-icon-remove"></i>
-					</dd>
-				</dl>
-				<dl>
-					<dt>Date of Birth</dt>
-					<dd>
-						<i *ngIf="screenPropertyNameMapMatchMap['dateOfBirth']" class="dx-icon-check"></i>
-						<i *ngIf="!screenPropertyNameMapMatchMap['dateOfBirth']" class="dx-icon-remove"></i>
-					</dd>
-				</dl>
-				<dl>
-					<dt>Country</dt>
-					<dd>
-						<i *ngIf="screenPropertyNameMapMatchMap['country']" class="dx-icon-check"></i>
-						<i *ngIf="!screenPropertyNameMapMatchMap['country']" class="dx-icon-remove"></i>
-					</dd>
-				</dl>
-			</div>
+</div>
+<div class="matches-container">
+
+	<h3 class="matches-title">Screening Status: {{ dataLoading ? '' : getScreeningStatus() }}</h3>
+
+	<div id="matches-details-id">
+		<div *ngIf="!dataLoading">
+			<dl>
+				<dt>Full Name</dt>
+				<dd>
+					<i *ngIf="screenPropertyNameMapMatchMap['fullName']" class="dx-icon-check"></i>
+					<i *ngIf="!screenPropertyNameMapMatchMap['fullName']" class="dx-icon-remove"></i>
+				</dd>
+			</dl>
+			<dl>
+				<dt>Date of Birth</dt>
+				<dd>
+					<i *ngIf="screenPropertyNameMapMatchMap['dateOfBirth']" class="dx-icon-check"></i>
+					<i *ngIf="!screenPropertyNameMapMatchMap['dateOfBirth']" class="dx-icon-remove"></i>
+				</dd>
+			</dl>
+			<dl>
+				<dt>Country</dt>
+				<dd>
+					<i *ngIf="screenPropertyNameMapMatchMap['country']" class="dx-icon-check"></i>
+					<i *ngIf="!screenPropertyNameMapMatchMap['country']" class="dx-icon-remove"></i>
+				</dd>
+			</dl>
 		</div>
-		<dx-load-panel
-			[position]="{ of: '#matches-details-id' }"
-			[(visible)]="dataLoading"
-			[showIndicator]="true"
-			[showPane]="true"
-			message=""
-		>
-		</dx-load-panel>
 	</div>
+	<dx-load-panel
+		[(visible)]="dataLoading"
+		[showIndicator]="true"
+		[showPane]="true"
+		message=""
+	>
+		<dxo-position
+			of="#matches-details-id"
+			at="left top"
+			offset="110 50"
+		>
+		</dxo-position>
+	</dx-load-panel>
 </div>
 

@@ -1,7 +1,14 @@
 .ofac-verification-form-container {
 	display: flex;
-	padding-top: 5rem;
-	padding-left: 5rem;
+	padding: 2rem;
+}
+
+.matches-container {
+	padding-left: 2rem;
+
+	.matches-title {
+		padding-top: 0.5rem;
+	}
 }
 
 .button-container {
@@ -10,10 +17,6 @@
 
 .field-value-container {
 	display: flex;
-}
-
-.matches-container {
-	padding-left: 5rem;
 }
 
 dl {
