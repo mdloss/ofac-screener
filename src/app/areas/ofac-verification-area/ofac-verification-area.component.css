@@ -1,0 +1,39 @@
+.ofac-verification-form-container {
+	display: flex;
+	padding-top: 5rem;
+	padding-left: 5rem;
+}
+
+.button-container {
+	padding-top: 1rem;
+}
+
+.field-value-container {
+	display: flex;
+}
+
+.matches-container {
+	padding-left: 5rem;
+}
+
+dl {
+	display: grid;
+	grid-template-columns: max-content auto;
+}
+
+dt {
+	grid-column-start: 1;
+}
+
+dd {
+	padding-left: 0.5rem;
+	grid-column-start: 2;
+}
+
+.dx-icon-check {
+	color: green;
+}
+
+.dx-icon-remove {
+	color: red;
+}

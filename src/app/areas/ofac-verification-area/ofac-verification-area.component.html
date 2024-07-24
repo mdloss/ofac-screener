@@ -1,0 +1,107 @@
+<div class="ofac-verification-form-container">
+	<form>
+		<dx-form
+			#formComponent
+			[(formData)]="formData"
+			[showColonAfterLabel]="false"
+			[showValidationSummary]=false
+			[colCount]=columnCount
+			labelLocation="top"
+		>
+			<dxi-item
+				dataField="fullName"
+				editorType="dxTextBox"
+				label="Full Name"
+			>
+				<dxi-validation-rule
+					type="required"
+					[reevaluate]="true"
+					message="Full Name is required."
+				>
+				</dxi-validation-rule>
+			</dxi-item>
+			<dxi-item
+				dataField="dateOfBirth"
+				editorType="dxDateBox"
+				label="Date of Birth"
+				[editorOptions]="{
+					type: 'date',
+					displayFormat: 'yyyy-MM-dd'
+				}"
+			>
+				<dxi-validation-rule
+					type="required"
+					[reevaluate]="true"
+					message="Date of Birth is required."
+				>
+				</dxi-validation-rule>
+			</dxi-item>
+			<dxi-item
+				editorType="dxSelectBox"
+				dataField="country"
+				label="country"
+				[editorOptions]="{
+					dataSource: countryDataSource,
+					displayExpr: 'label',
+					valueExpr: 'id',
+					placeholder: 'Select Country...',
+					searchEnabled: true,
+					showClearButton: true
+				}"
+			>
+				<dxi-validation-rule
+					type="required"
+					[reevaluate]="true"
+					message="Country is required."
+				>
+				</dxi-validation-rule>
+			</dxi-item>
+		</dx-form>
+		<div class="button-container btn-group float-left">
+			<dx-button
+				class="button-small"
+				type="default"
+				text="Screen User"
+				(click)="screenUserData()"
+			>
+			</dx-button>
+		</div>
+	</form>
+	<div class="matches-container">
+		<h3>Matches</h3>
+		<div id="matches-details-id">
+			<div>
+				<dl>
+					<dt>Full Name</dt>
+					<dd>
+						<i *ngIf="screenPropertyNameMapMatchMap['fullName']" class="dx-icon-check"></i>
+						<i *ngIf="!screenPropertyNameMapMatchMap['fullName']" class="dx-icon-remove"></i>
+					</dd>
+				</dl>
+				<dl>
+					<dt>Date of Birth</dt>
+					<dd>
+						<i *ngIf="screenPropertyNameMapMatchMap['dateOfBirth']" class="dx-icon-check"></i>
+						<i *ngIf="!screenPropertyNameMapMatchMap['dateOfBirth']" class="dx-icon-remove"></i>
+					</dd>
+				</dl>
+				<dl>
+					<dt>Country</dt>
+					<dd>
+						<i *ngIf="screenPropertyNameMapMatchMap['country']" class="dx-icon-check"></i>
+						<i *ngIf="!screenPropertyNameMapMatchMap['country']" class="dx-icon-remove"></i>
+					</dd>
+				</dl>
+			</div>
+		</div>
+		<dx-load-panel
+			[position]="{ of: '#matches-details-id' }"
+			[(visible)]="dataLoading"
+			[showIndicator]="true"
+			[showPane]="true"
+			message=""
+		>
+		</dx-load-panel>
+	</div>
+</div>
+

@@ -1,0 +1,12 @@
+{
+	"dictionaryDefinitions": [
+		{
+			"name": "client-side-code-terms",
+			"path": "./dictionaries/client-side-code-terms.txt",
+			"addWords": true
+		}
+	],
+	"dictionaries": [
+		"client-side-code-terms"
+	]
+}

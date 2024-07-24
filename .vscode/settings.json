@@ -1,0 +1,11 @@
+{
+	"stylelint.enable": true,
+	"css.validate": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"typescript.preferences.importModuleSpecifier": "relative",
+	"extensions.ignoreRecommendations": true,
+	"prettier.endOfLine": "auto"
+}
